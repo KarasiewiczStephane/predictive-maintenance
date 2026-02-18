@@ -88,6 +88,10 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+from src.api.middleware import RequestLoggingMiddleware  # noqa: E402
+
+app.add_middleware(RequestLoggingMiddleware)
+
 
 @app.get("/health", response_model=HealthResponse)
 async def health_check() -> HealthResponse:
