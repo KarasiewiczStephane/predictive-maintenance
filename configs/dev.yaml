@@ -1,0 +1,15 @@
+# Development configuration overrides
+debug: true
+log_level: "DEBUG"
+log_json_format: false
+
+data_dir: "data"
+model_dir: "models"
+
+model_type: "random_forest"
+test_size: 0.2
+random_state: 42
+n_estimators: 50
+max_depth: 5
+
+window_sizes: "5,10"

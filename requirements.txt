@@ -1,0 +1,19 @@
+# Core
+pydantic-settings>=2.0
+pyyaml>=6.0
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+xgboost>=2.0
+joblib>=1.3
+
+# API
+fastapi>=0.109
+uvicorn>=0.27
+httpx>=0.27
+
+# Dev
+pytest>=7.0
+pytest-cov>=4.0
+ruff>=0.1
+pre-commit>=3.0
