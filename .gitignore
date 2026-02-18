@@ -16,6 +16,7 @@ data/raw/
 *.csv
 *.parquet
 !data/sample/
+!data/sample/*.csv
 
 # Models
 *.pkl
@@ -31,6 +32,11 @@ data/raw/
 # OS
 .DS_Store
 Thumbs.db
+
+# Coverage
+.coverage
+htmlcov/
+coverage.xml
 
 # Logs
 *.log
