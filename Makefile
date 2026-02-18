@@ -1,4 +1,4 @@
-.PHONY: install test lint clean run docker
+.PHONY: install test test-cov lint clean run train serve docker
 
 install:
 	pip install -r requirements.txt
@@ -6,8 +6,11 @@ install:
 test:
 	pytest tests/ -v --tb=short --cov=src
 
+test-cov:
+	pytest tests/ -v --cov=src --cov-report=html --cov-report=term-missing --cov-fail-under=80
+
 lint:
-	ruff check src/ tests/
+	ruff check src/ tests/ --fix
 	ruff format src/ tests/
 
 clean:
@@ -16,6 +19,12 @@ clean:
 
 run:
 	python -m src.main
+
+train:
+	python -m src.main --train sample/equipment_sensors.csv
+
+serve:
+	python -m src.main --serve
 
 docker:
 	docker build -t $(shell basename $(CURDIR)) .
