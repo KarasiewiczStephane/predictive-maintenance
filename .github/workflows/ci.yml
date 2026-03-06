@@ -1,5 +1,6 @@
 name: CI
 
+# Trigger on push and pull requests to main branches
 on:
   push:
     branches: [main, master]
