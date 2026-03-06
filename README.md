@@ -20,20 +20,26 @@ Equipment failure prediction system using machine learning on sensor data. Detec
 ## Quick Start
 
 ```bash
-# Clone and install
+# 1. Clone and install
 git clone git@github.com:KarasiewiczStephane/predictive-maintenance.git
 cd predictive-maintenance
-pip install -r requirements.txt
+make install        # pip install -r requirements.txt
 
-# Generate sample data
+# 2. (Optional) Regenerate sample data — a sample CSV is already included
 python scripts/generate_sample_data.py
 
-# Train a model
+# 3. Train a model (saves to models/model.joblib)
 make train
 
-# Start the API
+# 4. Launch the Streamlit dashboard (http://localhost:8501)
+make dashboard
+
+# 5. Or start the prediction API (http://localhost:8000)
 make serve
 ```
+
+> **Note:** Sample sensor data ships at `data/sample/equipment_sensors.csv`, so you
+> can jump straight to step 3 after installing.
 
 ## Usage
 
@@ -41,17 +47,30 @@ make serve
 
 ```bash
 # Train with default settings (Random Forest)
-python -m src.main --train sample/equipment_sensors.csv
+make train
+# Equivalent to: python -m src.main --train sample/equipment_sensors.csv
 
 # Override model type via environment
-MODEL_TYPE=xgboost python -m src.main --train sample/equipment_sensors.csv
+MODEL_TYPE=xgboost make train
+```
+
+### Dashboard
+
+The Streamlit dashboard visualizes model performance, sensor trends,
+prediction distributions, and threshold optimization.
+
+```bash
+make dashboard
+# Equivalent to: streamlit run src/dashboard/app.py
+# Opens at http://localhost:8501
 ```
 
 ### API Prediction
 
 ```bash
 # Start the server
-python -m src.main --serve
+make serve
+# Equivalent to: python -m src.main --serve
 
 # Health check
 curl http://localhost:8000/health
@@ -103,6 +122,8 @@ predictive-maintenance/
 │   ├── api/
 │   │   ├── server.py          # FastAPI endpoints
 │   │   └── middleware.py       # Request logging middleware
+│   ├── dashboard/
+│   │   └── app.py             # Streamlit dashboard (sensor trends, metrics)
 │   └── utils/
 │       └── logging.py         # Structured logging utilities
 ├── tests/                     # Unit and integration tests
@@ -130,8 +151,11 @@ All settings are configurable via environment variables or `.env` file:
 | `N_ESTIMATORS` | `100` | Number of trees |
 | `MAX_DEPTH` | `10` | Maximum tree depth |
 | `WINDOW_SIZES` | `5,10,30` | Rolling window sizes for features |
+| `MISSING_VALUE_STRATEGY` | `interpolate` | Missing value handling (`interpolate`, `drop`, `ffill`) |
+| `RANDOM_STATE` | `42` | Random seed for reproducibility |
 | `API_HOST` | `0.0.0.0` | API server host |
 | `API_PORT` | `8000` | API server port |
+| `DEBUG` | `false` | Enable debug mode |
 | `LOG_LEVEL` | `INFO` | Logging level |
 | `LOG_JSON_FORMAT` | `false` | JSON structured logging |
 
@@ -140,20 +164,15 @@ See `.env.example` for the full list.
 ## Development
 
 ```bash
-# Install dependencies
-make install
-
-# Run linter
-make lint
-
-# Run tests
-make test
-
-# Run tests with coverage report
-make test-cov
-
-# Clean up
-make clean
+make install     # Install dependencies
+make lint        # Ruff check + format
+make test        # Run tests with coverage
+make test-cov    # Tests with HTML coverage report (80% threshold)
+make train       # Train model on sample data
+make serve       # Start FastAPI prediction server
+make dashboard   # Launch Streamlit dashboard
+make docker      # Build and run Docker container
+make clean       # Remove __pycache__ and .pyc files
 ```
 
 ## License

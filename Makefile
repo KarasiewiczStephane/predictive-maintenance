@@ -1,4 +1,4 @@
-.PHONY: install test test-cov lint clean run train serve docker
+.PHONY: install test test-cov lint clean run train serve dashboard docker
 
 install:
 	pip install -r requirements.txt
@@ -25,6 +25,9 @@ train:
 
 serve:
 	python -m src.main --serve
+
+dashboard:
+	streamlit run src/dashboard/app.py
 
 docker:
 	docker build -t $(shell basename $(CURDIR)) .
