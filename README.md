@@ -1,6 +1,6 @@
 # Predictive Maintenance
 
-Equipment failure prediction system using machine learning on sensor data. Detects degradation patterns in temperature, vibration, pressure, and RPM readings to predict failures before they occur.
+> Equipment failure prediction from sensor data — detects degradation patterns in temperature, vibration, pressure, and RPM to prevent downtime.
 
 ## Architecture
 
@@ -174,6 +174,11 @@ make dashboard   # Launch Streamlit dashboard
 make docker      # Build and run Docker container
 make clean       # Remove __pycache__ and .pyc files
 ```
+
+
+## Author
+
+**Stéphane Karasiewicz** — [skarazdata.com](https://skarazdata.com) | [LinkedIn](https://www.linkedin.com/in/stephane-karasiewicz/)
 
 ## License
 
